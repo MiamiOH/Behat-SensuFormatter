@@ -1,0 +1,25 @@
+{
+    "name": "miamioh/behat-sensu-formatter",
+    "description": "Package created to allow behat tests to be used within the sensu monitoring framework",
+    "require": {
+        "php": ">=7.0",
+        "behat/behat": "^3.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4",
+        "symfony/process": ">2.3,<4.0"
+    },
+    "authors": [
+        {
+            "name": "Don Kidd",
+            "email": "kidddw@miamioh.edu"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "miamioh\\BehatSensuFormatter\\": "src/",
+            "Tests\\": "tests/"
+        }
+    }
+}
