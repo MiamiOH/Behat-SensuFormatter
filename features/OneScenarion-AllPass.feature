@@ -32,7 +32,7 @@ Background:
     """
 
   Scenario: Suite with all passing tests
-    Given a file named "features/suite1/suite_passing.feature" with:
+    Given a file named "features/testScenario.feature" with:
       """
       @Feature1
       Feature: Suite failing with passing scenarios
@@ -40,5 +40,5 @@ Background:
           When I give a passing step
       """
     When I run "behat --no-colors"
-    Then the output should contain "OK: All tests passed"
-
+    Then the output should contain "OK: All 1 tests passed"
+    And the Return Code Should Be 0

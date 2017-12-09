@@ -32,7 +32,7 @@ Background:
     """
 
   Scenario: Suite with all Multiple passing tests
-    Given a file named "features/suite1/suite_passing.feature" with:
+    Given a file named "features/testScenario.feature" with:
       """
       Feature: Suite running with passing scenarios
         Scenario: Passing scenario
@@ -41,5 +41,5 @@ Background:
           When I give a failing step
       """
     When I run "behat --no-colors"
-    Then the output should contain "Critical: All tests failed"
-
+    Then the output should contain "Critical: All 2 tests failed"
+    And the Return Code Should Be 2

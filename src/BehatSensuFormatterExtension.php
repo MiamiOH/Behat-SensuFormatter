@@ -59,7 +59,8 @@ class BehatSensuFormatterExtension implements Extension
    */
   public function configure(ArrayNodeDefinition $builder)
   {
-    $builder->children()->scalarNode('output')->defaultValue('stdout');
+    $builder->children()->integerNode('warning')->defaultValue('20');
+    $builder->children()->integerNode('critical')->defaultValue('50');
 
   }
 
@@ -72,6 +73,8 @@ class BehatSensuFormatterExtension implements Extension
   public function load(ContainerBuilder $container, array $config)
   {
     $definition = new Definition("miamioh\\BehatSensuFormatter\\Formatter\\SensuFormatter");
+    $definition->addArgument($config['warning']);
+    $definition->addArgument($config['critical']);
     $container->setDefinition("sensuformatter",$definition)->addTag("output.formatter");
 
   }

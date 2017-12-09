@@ -153,8 +153,6 @@ private $output;
   */
  public function theReturnCodeShouldBe($returnCode)
  {
-   // print_r($this->process);
-   print_r($this->output);
    Assert::assertEquals($returnCode, $this->getExitCode());
  }
 

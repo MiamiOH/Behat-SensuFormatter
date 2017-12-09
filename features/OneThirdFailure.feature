@@ -31,7 +31,7 @@ Background:
       }
     """
 
-  Scenario: Suite with all Multiple passing tests
+  Scenario: Suite with all Multiple tests
     Given a file named "features/testScenario.feature" with:
       """
       Feature: Suite running with passing scenarios
@@ -39,7 +39,9 @@ Background:
           When I give a passing step
         Scenario: Passing scenario
           When I give a passing step
+        Scenario: Failing scenario
+          When I give a failing step
       """
     When I run "behat --no-colors"
-    Then the Return Code Should Be 0
-    And the output should contain "OK: All 2 tests passed"
+    Then the output should contain "Warning: 1 tests out of 3 total tests failed"
+    And the Return Code Should Be 1
