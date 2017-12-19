@@ -161,8 +161,8 @@ private $output;
   */
  public function theOutputShouldContain($outputString)
  {
-     print_r($this->output);
-     Assert::assertEquals($outputString,$this->output);
+   // print_r($this->output);
+     Assert::assertContains($outputString,$this->output);
  }
 
 }

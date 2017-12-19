@@ -11,7 +11,7 @@ use Behat\Testwork\Output\Printer\OutputPrinter as PrinterInterface;
  * @author kidddw
  */
 class StreamOutputPrinter implements PrinterInterface   {
-    
+
     /**
      * Sets output path.
      *
@@ -66,7 +66,6 @@ class StreamOutputPrinter implements PrinterInterface   {
     {
         print_r($messages);
 
-        // TODO: Implement write() method.
     }
 
 
@@ -77,7 +76,9 @@ class StreamOutputPrinter implements PrinterInterface   {
      */
     public function writeln($messages = '')
     {
-        // TODO: Implement writeln() method.
+        $this->write($messages);
+        print_r("\n");
+
     }
 
 
@@ -88,7 +89,7 @@ class StreamOutputPrinter implements PrinterInterface   {
     {
         // TODO: Implement flush() method.
     }
-    
+
         /**
      * Returns output verbosity level.
      *
@@ -134,6 +135,6 @@ class StreamOutputPrinter implements PrinterInterface   {
     {
         // TODO: Implement isOutputDecorated() method.
     }
-            
+
 
 }

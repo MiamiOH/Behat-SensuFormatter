@@ -33,9 +33,10 @@ class SensuFormatter implements Formatter
     /** @var int */
     private $failedCounter = 0;
 
-    public function __construct($warning, $critical)  {
+    public function __construct($warning, $critical, $checkType)  {
         $this->options['warning'] = $warning;
         $this->options['critical'] = $critical;
+        $this->options['checkType'] = $checkType;
 
         $this->printer  = new StreamOutputPrinter();
         $this->exerciseTimer  = new Timer();
@@ -127,31 +128,36 @@ class SensuFormatter implements Formatter
     $failRate = round(($this->failedCounter / $totalTests) * 100);
     // print_r($failRate . '-'. $this->options['warning'].'-' .$this->options['critical']);
     $failedStats = "$this->failedCounter tests out of $totalTests total tests failed";
-      if ($failRate == 0) {
-        $this->printer->write("OK: All $totalTests tests passed");
-        exit(0);
-          return;
-      }
-      if (($failRate > 1) && ($failRate < $this->options['warning'])) {
-        $this->printer->write("OK: $this->passedCounter tests out of $totalTests passed");
-        exit(0);
+    if (strtolower($this->options['checkType']) == 'metric' ) {
+      $this->printer->writeln('behat.tests.run ' . $totalTests );
+      $this->printer->writeln('behat.tests.passed ' . $this->passedCounter);
+      $this->printer->writeln('behat.tests.failed ' . $this->failedCounter);
+    }
+    if ($failRate == 0) {
+      $this->printer->write("OK: All $totalTests tests passed");
+      exit(0);
         return;
-      }
-      if (($failRate > $this->options['warning']) && ($failRate < $this->options['critical'])) {
-        $this->printer->write("Warning: $failedStats");
-        exit(1);
-        return;
-      }
-      if (($failRate > $this->options['critical']) && ($failRate < 99 )) {
-        $this->printer->write("Critical: $failedStats");
-        exit(2);
-        return;
-      }
-      if ($failRate == 100) {
-        $this->printer->write("Critical: All $totalTests tests failed");
-        exit(2);
-        return;
-      }
+    }
+    if (($failRate > 1) && ($failRate < $this->options['warning'])) {
+      $this->printer->write("OK: $this->passedCounter tests out of $totalTests passed");
+      exit(0);
+      return;
+    }
+    if (($failRate > $this->options['warning']) && ($failRate < $this->options['critical'])) {
+      $this->printer->write("Warning: $failedStats");
+      exit(1);
+      return;
+    }
+    if (($failRate > $this->options['critical']) && ($failRate < 99 )) {
+      $this->printer->write("Critical: $failedStats");
+      exit(2);
+      return;
+    }
+    if ($failRate == 100) {
+      $this->printer->write("Critical: All $totalTests tests failed");
+      exit(2);
+      return;
+    }
   }
   /**
    * @param BeforeScenario $event

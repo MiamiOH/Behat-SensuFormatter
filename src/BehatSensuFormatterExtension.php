@@ -61,6 +61,7 @@ class BehatSensuFormatterExtension implements Extension
   {
     $builder->children()->integerNode('warning')->defaultValue('20');
     $builder->children()->integerNode('critical')->defaultValue('50');
+    $builder->children()->scalarNode('checkType')->defaultValue('standard');
 
   }
 
@@ -75,6 +76,7 @@ class BehatSensuFormatterExtension implements Extension
     $definition = new Definition("miamioh\\BehatSensuFormatter\\Formatter\\SensuFormatter");
     $definition->addArgument($config['warning']);
     $definition->addArgument($config['critical']);
+    $definition->addArgument($config['checkType']);
     $container->setDefinition("sensuformatter",$definition)->addTag("output.formatter");
 
   }
