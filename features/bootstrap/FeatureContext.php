@@ -164,5 +164,13 @@ private $output;
    // print_r($this->output);
      Assert::assertContains($outputString,$this->output);
  }
+ /**
+  * @Then the output should not contain :outputString
+  */
+ public function theOutputShouldNotContain($outputString)
+ {
+   // print_r($this->output);
+     Assert::assertNotContains($outputString,$this->output);
+ }
 
 }
