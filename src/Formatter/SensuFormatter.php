@@ -129,9 +129,9 @@ class SensuFormatter implements Formatter
     // print_r($failRate . '-'. $this->options['warning'].'-' .$this->options['critical']);
     $failedStats = "$this->failedCounter tests out of $totalTests total tests failed";
     if (strtolower($this->options['checkType']) == 'metric' ) {
-      $this->printer->writeln('behat.tests.run ' . $totalTests );
-      $this->printer->writeln('behat.tests.passed ' . $this->passedCounter);
-      $this->printer->writeln('behat.tests.failed ' . $this->failedCounter);
+      $this->printer->writeln('behat.tests.run ' . $totalTests . ' ' . time());
+      $this->printer->writeln('behat.tests.passed ' . $this->passedCounter . ' ' . time());
+      $this->printer->writeln('behat.tests.failed ' . $this->failedCounter . ' ' . time());
     }
     if ($failRate == 0) {
       $this->printer->write("OK: All $totalTests tests passed");
