@@ -62,6 +62,7 @@ class BehatSensuFormatterExtension implements Extension
     $builder->children()->integerNode('warning')->defaultValue('20');
     $builder->children()->integerNode('critical')->defaultValue('50');
     $builder->children()->scalarNode('checkType')->defaultValue('standard');
+    $builder->children()->scalarNode('metricPreface')->defaultValue('');
 
   }
 
@@ -77,6 +78,7 @@ class BehatSensuFormatterExtension implements Extension
     $definition->addArgument($config['warning']);
     $definition->addArgument($config['critical']);
     $definition->addArgument($config['checkType']);
+    $definition->addArgument($config['metricPreface']);
     $container->setDefinition("sensuformatter",$definition)->addTag("output.formatter");
 
   }

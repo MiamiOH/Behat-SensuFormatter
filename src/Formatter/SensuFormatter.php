@@ -33,10 +33,14 @@ class SensuFormatter implements Formatter
     /** @var int */
     private $failedCounter = 0;
 
-    public function __construct($warning, $critical, $checkType)  {
+    public function __construct($warning, $critical, $checkType,$preface)  {
         $this->options['warning'] = $warning;
         $this->options['critical'] = $critical;
         $this->options['checkType'] = $checkType;
+        if ($preface <> '') {
+          $preface .= '.';
+        }
+        $this->options['preface'] = $preface;
 
         $this->printer  = new StreamOutputPrinter();
         $this->exerciseTimer  = new Timer();
@@ -129,9 +133,11 @@ class SensuFormatter implements Formatter
     // print_r($failRate . '-'. $this->options['warning'].'-' .$this->options['critical']);
     $failedStats = "$this->failedCounter tests out of $totalTests total tests failed";
     if (strtolower($this->options['checkType']) == 'metric' ) {
-      $this->printer->writeln('behat.tests.run ' . $totalTests . ' ' . time());
-      $this->printer->writeln('behat.tests.passed ' . $this->passedCounter . ' ' . time());
-      $this->printer->writeln('behat.tests.failed ' . $this->failedCounter . ' ' . time());
+      print_r($this->options['preface']);
+      $preface = $this->options['preface'];
+      $this->printer->writeln($preface.'behat.tests.run ' . $totalTests . ' ' . time());
+      $this->printer->writeln($preface.'behat.tests.passed ' . $this->passedCounter . ' ' . time());
+      $this->printer->writeln($preface.'behat.tests.failed ' . $this->failedCounter . ' ' . time());
     }
     if ($failRate == 0) {
       $this->printer->write("OK: All $totalTests tests passed");
